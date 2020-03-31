@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:AccordionXamarin"
+             xmlns:accordion="clr-namespace:Syncfusion.XForms.Accordion;assembly=Syncfusion.Expander.XForms"
+             x:Class="AccordionXamarin.MainPage">
+
+    <ContentPage.BindingContext>
+        <local:ItemInfoRepository x:Name="viewModel"/>
+    </ContentPage.BindingContext>
+
+    <accordion:SfAccordion x:Name="accordion" BindableLayout.ItemsSource="{Binding Info}" ExpandMode="SingleOrNone">
+        <BindableLayout.ItemTemplate>
+            <DataTemplate>
+                <accordion:AccordionItem>
+                    <accordion:AccordionItem.Header>
+                        <Grid Padding="5,0,0,0" HeightRequest="50">
+                            <Label Text="{Binding Name}" FontSize="20" />
+                        </Grid>
+                    </accordion:AccordionItem.Header>
+                    <accordion:AccordionItem.Content>
+                        <Grid BackgroundColor="#C0C0C0" Padding="5,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="45" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Description}" VerticalOptions="Center"/>
+                            <Grid Grid.Column="1" Padding="10" BackgroundColor="#C0C0C0">
+                                <ImageButton BackgroundColor="{OnPlatform UWP=#C0C0C0}" HeightRequest="30" WidthRequest="30" Source="Details.png" Command="{Binding Path=BindingContext.ShowDetailsCommand, Source={x:Reference accordion}}" CommandParameter="{Binding .}"/>
+                            </Grid>
+                        </Grid>
+                    </accordion:AccordionItem.Content>
+                </accordion:AccordionItem>
+            </DataTemplate>
+        </BindableLayout.ItemTemplate>
+    </accordion:SfAccordion>
+</ContentPage>
